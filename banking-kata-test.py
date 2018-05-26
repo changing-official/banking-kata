@@ -9,10 +9,17 @@ class TestBankingKata(unittest.TestCase):
     def testAccountDepositAcceptsValue(self):
         self.assertTrue(Account().deposit(100))
 
-    def testAccountDepositDontAcceptInvalidValue(self):
-        self.assertFalse(Account().deposit("100aa"))
+    def testAccountDepositDontAcceptString(self):
+        with self.assertRaises(ValueError) as cm:
+            Account().deposit("100aa")
         
-        self.assertFalse(Account().deposit(-9))
+        self.assertEqual(str(cm.exception), "Valor deve ser numérico")
+
+    def testAccountDepositDontAcceptNegative(self):
+        with self.assertRaises(ValueError) as cm:
+            self.assertFalse(Account().deposit(-9))
+
+        self.assertEqual(str(cm.exception), "Valor deve ser positivo")
 
     def testAccountDepositShowsMoney(self):
         conta = Account()
