@@ -3,6 +3,7 @@ class Account():
     _money = 0
 
     def deposit(self, value):
+        
         convertido = 0
 
         try:
@@ -18,10 +19,14 @@ class Account():
         return True
 
     def withdraw(self, value):
+
         if (value == 0):
             raise ValueError("Saque deve ser maior que zero")
+        if (value > self._money):
+            raise ValueError("Saldo Insuficiente")
         
-        raise ValueError("Saldo Insuficiente")
-    
+        self._money -= value
+
     def printStatement(self):
+
         return self._money
