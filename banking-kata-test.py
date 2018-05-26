@@ -47,6 +47,13 @@ class TestBankingKata(unittest.TestCase):
 
         self.assertEqual(str(cm.exception), "Saque deve ser maior que zero")
 
+    def testAccountWithdrawShouldWithdraw(self):
+        
+        self.conta.deposit(100)
+        self.conta.withdraw(100)
+
+        self.assertEqual(self.conta.printStatement(), 0)
+
 if __name__ == '__main__':
     unittest.main()
     
