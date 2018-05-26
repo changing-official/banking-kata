@@ -40,7 +40,12 @@ class TestBankingKata(unittest.TestCase):
             self.conta.withdraw(1)
 
         self.assertEqual(str(cm.exception), "Saldo Insuficiente")
-        
+
+    def testAccountWithdrawShouldBeGreaterThanZero(self):
+        with self.assertRaises(ValueError) as cm:
+            self.conta.withdraw(0)
+
+        self.assertEqual(str(cm.exception), "Saque deve ser maior que zero")
 
 if __name__ == '__main__':
     unittest.main()
