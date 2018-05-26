@@ -1,6 +1,6 @@
 class Account():
 
-    money = 0
+    _money = 0
 
     def deposit(self, value):
         convertido = 0
@@ -8,11 +8,17 @@ class Account():
         try:
             convertido = float(value)
         except:
-            raise ValueError("Valor deve ser numérico")
+            raise ValueError("Valor deve ser numerico")
 
         if (convertido < 0 ):
            raise ValueError("Valor deve ser positivo")
 
-        self.money += convertido
+        self._money += convertido
 
         return True
+
+    def withdraw(self, value):
+        raise ValueError("Saldo Insuficiente")
+    
+    def printStatement(self):
+        return self._money

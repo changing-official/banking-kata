@@ -1,32 +1,46 @@
+
 import unittest
 from account import Account
 
 class TestBankingKata(unittest.TestCase):
 
+    @classmethod
+    def setUp(self):
+       self.conta = Account()
+
     def testAccountExists(self):
-        self.assertIsNotNone(Account())
+        self.assertIsNotNone(self.conta)
 
     def testAccountDepositAcceptsValue(self):
-        self.assertTrue(Account().deposit(100))
+        self.assertTrue(self.conta.deposit(100))
 
     def testAccountDepositDontAcceptString(self):
         with self.assertRaises(ValueError) as cm:
-            Account().deposit("100aa")
+            self.conta.deposit("100aa")
         
-        self.assertEqual(str(cm.exception), "Valor deve ser numérico")
+        self.assertEqual(str(cm.exception), "Valor deve ser numerico")
 
     def testAccountDepositDontAcceptNegative(self):
         with self.assertRaises(ValueError) as cm:
-            self.assertFalse(Account().deposit(-9))
+            self.assertFalse(self.conta.deposit(-9))
 
         self.assertEqual(str(cm.exception), "Valor deve ser positivo")
 
-    def testAccountDepositShowsMoney(self):
-        conta = Account()
-        conta.deposit(100)
-        self.assertEqual(conta.money, 100)
-        conta.deposit(200)
-        self.assertEqual(conta.money, 300)
+    def testAccountDepositShowsStatement(self):
+        self.conta.deposit(100)
+        self.assertEqual(self.conta.printStatement(), 100)
+        self.conta.deposit(200)
+        self.assertEqual(self.conta.printStatement(), 300)
+
+    def testAccountPrintStatementWorks(self):
+        self.assertEqual(self.conta.printStatement(), 0)
+
+    def testAccountWithdrawRaisesErrorWhenZeroBalance(self):
+        with self.assertRaises(ValueError) as cm:
+            self.conta.withdraw(1)
+
+        self.assertEqual(str(cm.exception), "Saldo Insuficiente")
+        
 
 if __name__ == '__main__':
     unittest.main()
