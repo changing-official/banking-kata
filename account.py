@@ -18,8 +18,10 @@ class Account():
         return True
 
     def withdraw(self, value):
+        if (value == 0):
+            raise ValueError("Saque deve ser maior que zero")
+        
         raise ValueError("Saldo Insuficiente")
     
     def printStatement(self):
         return self._money
-        
