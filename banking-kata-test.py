@@ -1,6 +1,6 @@
 
 import unittest
-from account import Account
+from .account import Account
 
 class TestBankingKata(unittest.TestCase):
 
