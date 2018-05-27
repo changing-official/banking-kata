@@ -1,5 +1,12 @@
 language: python
 python:
   - "3.6"
+
+install:
+  - pip install codecov
+
 script:
-  - python -m unittest -v banking-kata-test.py
+  - coverage run ./banking-kata-test.py
+
+after_success:
+  - codecov
